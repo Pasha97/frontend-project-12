@@ -1,5 +1,5 @@
 import { Formik, Form, Field } from 'formik';
-import { Alert, Button } from 'react-bootstrap';
+import { Alert, Button, Card } from 'react-bootstrap';
 import { useEffect, useState } from "react";
 import { login } from "../../services/api/auth.js";
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ export function LoginPage() {
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const getFieldClasses = (error)  => {
+    const getFieldClasses = (error) => {
         return classNames('form-control', {
             'is-invalid': Boolean(error),
         });
@@ -56,40 +56,50 @@ export function LoginPage() {
 
     return (
         <div className="row justify-content-center align-content-center h-100">
-            <Formik
-                initialValues={initialValues}
-                onSubmit={onSubmit}
-                className="col-12 col-md-6 mt-3 mt-md-0"
-            >
-                <Form>
-                    <h1 className="text-center mb-4">Войти</h1>
-                    <div className="form-floating mb-3">
-                        <Field
-                            className={getFieldClasses(error)}
-                            name="username"
-                            type="text"
-                            required
-                        />
-                        <label htmlFor="username">Ваше имя</label>
-                    </div>
+            <div className="col-12 col-md-8 col-xxl-4">
+                <Card>
+                    <Card.Body className="p-5">
+                        <Formik
+                            initialValues={initialValues}
+                            onSubmit={onSubmit}
+                            className="col-12 col-md-6 mt-3 mt-md-0"
+                        >
+                            <Form>
+                                <h1 className="text-center mb-4">Войти</h1>
+                                <div className="form-floating mb-3">
+                                    <Field
+                                        className={getFieldClasses(error)}
+                                        id="username"
+                                        name="username"
+                                        type="text"
+                                        placeholder="Ваше имя"
+                                        required
+                                    />
+                                    <label htmlFor="username">Ваше имя</label>
+                                </div>
 
-                    <div className="form-floating mb-3">
-                        <Field
-                            className={getFieldClasses(error)}
-                            name="password"
-                            type="password"
-                            required
-                        />
-                        <label htmlFor="password">Пароль</label>
-                    </div>
+                                <div className="form-floating mb-3">
+                                    <Field
+                                        className={getFieldClasses(error)}
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        placeholder="Пароль"
+                                        required
+                                    />
+                                    <label htmlFor="password">Пароль</label>
+                                </div>
 
-                    { error && <Alert variant="danger">
-                        {error}
-                    </Alert> }
+                                {error && <Alert variant="danger">
+                                    {error}
+                                </Alert>}
 
-                    <Button className="w-100 mb-3" type="submit" disabled={isLoading}>Войти</Button>
-                </Form>
-            </Formik>
+                                <Button className="w-100 mb-3" type="submit" disabled={isLoading} size="lg">Войти</Button>
+                            </Form>
+                        </Formik>
+                    </Card.Body>
+                </Card>
+            </div>
         </div>
     );
 }
