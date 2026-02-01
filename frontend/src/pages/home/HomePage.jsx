@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { getChannels } from "../../services/api/channels.js";
-import { getMessages } from "../../services/api/messages.js";
+import api from "../../services/api";
 import ChannelList from "../../components/ChannelsList.jsx";
 import MessagesList from "../../components/MessagesList.jsx";
-import { initChannels } from "../../store/channels.js";
-import { initMessages } from "../../store/messages.js";
+import { initChannels } from "../../store/channels";
+import { addMessage, initMessages } from "../../store/messages";
+import { createSocket } from "../../services/socket/index.js";
 
 export function HomePage() {
     const dispatch = useDispatch();
@@ -14,18 +14,29 @@ export function HomePage() {
         const loadData = async () => {
             try {
                 const [channels, messages] = await Promise.all([
-                    getChannels(),
-                    getMessages()
+                    api.channels.getChannels(),
+                    api.messages.getMessages()
                 ]);
 
                 dispatch(initChannels(channels.data));
                 dispatch(initMessages(messages.data));
             } catch {
-              console.log('error')
+                console.log('error')
             }
         };
 
+        const socket = createSocket();
+
+        socket.on('newMessage', (payload) => {
+            dispatch(addMessage(payload));
+        })
+
+
         loadData();
+
+        return () => {
+            socket.off("newMessage");
+        };
     }, [dispatch]);
 
     return (

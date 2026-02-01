@@ -1,12 +1,16 @@
 import { Button, Navbar } from "react-bootstrap";
-import { isAuthenticated, removeToken } from "../../services/storage/auth";
 import { useNavigate } from "react-router-dom";
+import { logout, IsAuthenticated } from '../../store/auth';
+import { useDispatch, useSelector } from "react-redux";
 
 export function Header() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const IsAuth = useSelector(IsAuthenticated);
+
     const handleClickLogout = () => {
-        removeToken();
+        dispatch(logout());
         navigate('/login/', { replace: true });
     }
 
@@ -15,7 +19,7 @@ export function Header() {
             <div className="container">
                 <Navbar.Brand href="#">Chat</Navbar.Brand>
 
-                { isAuthenticated() && <Button onClick={handleClickLogout}>
+                { IsAuth && <Button onClick={handleClickLogout}>
                     Выйти
                 </Button> }
             </div>

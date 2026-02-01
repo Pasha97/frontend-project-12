@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { getToken } from '../storage/auth';
 
-export const api = axios.create({});
+export const axiosInstance = axios.create({});
 
-api.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use((config) => {
     const token = getToken();
 
     if (token) {

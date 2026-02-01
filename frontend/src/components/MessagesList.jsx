@@ -1,29 +1,114 @@
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { InputGroup, FormControl, Button } from "react-bootstrap";
+import { InputGroup, Button } from "react-bootstrap";
+import { Field, Form, Formik } from "formik";
+
+import api from "../services/api";
+import { user } from "../store/auth";
+import classNames from "classnames";
+import { currentChannel, currentChannelId } from "../store/channels/index";
+import { selectMessagesByChannelId } from "../store/messages";
+
+const Message = ({ message }) => {
+
+    return (
+        <div className="text-break mb-2">
+            <b> {message.username} </b> {message.body}
+        </div>
+    )
+}
 
 export function MessagesList() {
-    const currentChannel = useSelector((state) => {
-        const { channels, currentChannelId } = state.channels;
-        return channels.find((ch) => ch.id === currentChannelId) || {};
-    });
+    const activeChannel = useSelector(currentChannel);
+    const activeChannelId = useSelector(currentChannelId);
+    const messages = useSelector(selectMessagesByChannelId(activeChannelId));
 
+    const getFieldClasses = (error) => {
+        return classNames('form-control', {
+            'is-invalid': Boolean(error),
+        });
+    }
+
+    const userName = useSelector(user);
+
+    const messagesBox = useRef(null);
+    const inputField = useRef(null);
+
+    const [isLoading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    const initialValues = {
+        message: '',
+    };
+
+    useEffect(() => {
+        messagesBox.current.scrollTop = messagesBox.current.scrollHeight;
+    }, [messages]);
+
+    useEffect(() => {
+        inputField.current.focus();
+    }, [activeChannelId]);
+
+    const onSubmit = async ({ message }, { resetForm }) => {
+        if (isLoading) {
+            return;
+        }
+
+        setLoading(true);
+        setError('');
+
+        const requestData = {
+            body: message,
+            channelId: activeChannelId,
+            username: userName
+        };
+
+        try {
+            await api.messages.addMessages(requestData);
+            resetForm();
+        } catch (e) {
+            console.log('e.response', e, e.response)
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <div className="d-flex flex-column h-100">
             <div className="bg-light mb-4 p-3 shadow-sm small">
-                <p className="m-0"><b># { currentChannel.name }</b></p>
-                <span className="text-muted">0 сообщений</span>
+                <p className="m-0"><b># {activeChannel.name}</b></p>
+                <span className="text-muted">{messages.length} сообщений</span>
             </div>
-            <div id="messages-box" className="chat-messages overflow-auto px-5"></div>
+            <div id="messages-box"
+                 className="chat-messages overflow-auto px-5"
+                 ref={messagesBox}
+            >
+                {messages && messages.map(message => (<Message message={message} key={message.id}/>))}
+            </div>
             <div className="mt-auto px-5 py-3">
-                <InputGroup className="mb-3">
-                    <FormControl
-                        placeholder="Введите сообщение"
-                    />
-                    <Button>
-                        Отправить
-                    </Button>
-                </InputGroup>
+                <Formik
+                    initialValues={initialValues}
+                    onSubmit={onSubmit}
+                >
+                    <Form>
+                        <InputGroup className="mb-3">
+                            <Field
+                                autoFocus
+                                innerRef={inputField}
+                                type="text"
+                                name="message"
+                                required
+                                className={getFieldClasses(error)}
+                                placeholder="Введите сообщение"
+                                aria-label="message"
+                                disabled={isLoading}
+                            />
+                            <Button type="submit" disabled={isLoading}>
+                                Отправить
+                            </Button>
+                        </InputGroup>
+                    </Form>
+                </Formik>
             </div>
         </div>
     );

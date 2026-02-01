@@ -7,7 +7,7 @@ import { Formik, Form, Field } from 'formik';
 import { IsAuthenticated, login } from '../../store/auth';
 import api from "../../services/api";
 
-export function LoginPage() {
+export function SignupPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -32,9 +32,15 @@ export function LoginPage() {
     const initialValues = {
         username: '',
         password: '',
+        passwordRepeat: '',
     };
 
     const onSubmit = async (values) => {
+        if (values.password !== values.passwordRepeat) {
+            setError('Пароли должны совпадать');
+            return;
+        }
+
         if (isLoading) {
             return;
         }
@@ -43,7 +49,8 @@ export function LoginPage() {
         setError('');
 
         try {
-            const { data } = await api.auth.login(values);
+            const { data } = await api.auth.signup(values);
+
             dispatch(login({ token: data.token, user: data.username }));
             navigate('/', { replace: true });
         } catch (e) {
@@ -66,7 +73,7 @@ export function LoginPage() {
                             className="col-12 col-md-6 mt-3 mt-md-0"
                         >
                             <Form>
-                                <h1 className="text-center mb-4">Войти</h1>
+                                <h1 className="text-center mb-4">Зарегистрироваться</h1>
                                 <div className="form-floating mb-3">
                                     <Field
                                         className={getFieldClasses(error)}
@@ -91,6 +98,18 @@ export function LoginPage() {
                                     <label htmlFor="password">Пароль</label>
                                 </div>
 
+                                <div className="form-floating mb-3">
+                                    <Field
+                                        className={getFieldClasses(error)}
+                                        id="passwordRepeat"
+                                        name="passwordRepeat"
+                                        type="password"
+                                        placeholder="Подтвердите пароль"
+                                        required
+                                    />
+                                    <label htmlFor="password">Подтвердите пароль</label>
+                                </div>
+
                                 {error && <Alert variant="danger">
                                     {error}
                                 </Alert>}
@@ -100,7 +119,7 @@ export function LoginPage() {
                         </Formik>
                     </CardBody>
                     <CardFooter className="d-flex justify-content-center">
-                        <Link to="/signup">Зарегистрироваться</Link>
+                        <Link to="/login">Войти</Link>
                     </CardFooter>
                 </Card>
             </div>
