@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { Formik, Form, Field } from 'formik';
 import { IsAuthenticated, login } from '../../store/auth';
 import api from "../../services/api";
+import { signupSchema } from "../../validation/index.js";
 
 export function SignupPage() {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ export function SignupPage() {
 
 
     const [isLoading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [serverError, setServerError] = useState('');
 
     const getFieldClasses = (error) => {
         return classNames('form-control', {
@@ -36,17 +37,12 @@ export function SignupPage() {
     };
 
     const onSubmit = async (values) => {
-        if (values.password !== values.passwordRepeat) {
-            setError('Пароли должны совпадать');
-            return;
-        }
-
         if (isLoading) {
             return;
         }
 
         setLoading(true);
-        setError('');
+        setServerError('');
 
         try {
             const { data } = await api.auth.signup(values);
@@ -54,8 +50,10 @@ export function SignupPage() {
             dispatch(login({ token: data.token, user: data.username }));
             navigate('/', { replace: true });
         } catch (e) {
-            if (e.response.status === 401) {
-                setError('Неверные имя пользователя или пароль');
+            if (e.response?.status === 409) {
+                setServerError('Пользователь с таким именем уже существует');
+            } else {
+                setServerError('Ошибка регистрации');
             }
         } finally {
             setLoading(false);
@@ -69,53 +67,71 @@ export function SignupPage() {
                     <CardBody className="p-5">
                         <Formik
                             initialValues={initialValues}
+                            validationSchema={signupSchema}
                             onSubmit={onSubmit}
+                            validateOnChange={false}
+                            validateOnBlur={false}
                             className="col-12 col-md-6 mt-3 mt-md-0"
                         >
-                            <Form>
-                                <h1 className="text-center mb-4">Зарегистрироваться</h1>
-                                <div className="form-floating mb-3">
-                                    <Field
-                                        className={getFieldClasses(error)}
-                                        id="username"
-                                        name="username"
-                                        type="text"
-                                        placeholder="Ваше имя"
-                                        required
-                                    />
-                                    <label htmlFor="username">Ваше имя</label>
-                                </div>
+                            {({ errors }) => (
+                                <Form>
+                                    <h1 className="text-center mb-4">Зарегистрироваться</h1>
+                                    <div className="form-floating mb-3">
+                                        <Field
+                                            className={getFieldClasses(errors.username)}
+                                            id="username"
+                                            name="username"
+                                            type="text"
+                                            placeholder="Ваше имя"
+                                            required
+                                        />
+                                        <label htmlFor="username">Ваше имя</label>
 
-                                <div className="form-floating mb-3">
-                                    <Field
-                                        className={getFieldClasses(error)}
-                                        id="password"
-                                        name="password"
-                                        type="password"
-                                        placeholder="Пароль"
-                                        required
-                                    />
-                                    <label htmlFor="password">Пароль</label>
-                                </div>
+                                        {errors.username && (
+                                            <div className="invalid-feedback">{errors.username}</div>
+                                        )}
+                                    </div>
 
-                                <div className="form-floating mb-3">
-                                    <Field
-                                        className={getFieldClasses(error)}
-                                        id="passwordRepeat"
-                                        name="passwordRepeat"
-                                        type="password"
-                                        placeholder="Подтвердите пароль"
-                                        required
-                                    />
-                                    <label htmlFor="password">Подтвердите пароль</label>
-                                </div>
+                                    <div className="form-floating mb-3">
+                                        <Field
+                                            className={getFieldClasses(errors.password)}
+                                            id="password"
+                                            name="password"
+                                            type="password"
+                                            placeholder="Пароль"
+                                            required
+                                        />
+                                        <label htmlFor="password">Пароль</label>
+                                        {errors.password && (
+                                            <div className="invalid-feedback">{errors.password}</div>
+                                        )}
+                                    </div>
 
-                                {error && <Alert variant="danger">
-                                    {error}
-                                </Alert>}
+                                    <div className="form-floating mb-3">
+                                        <Field
+                                            className={getFieldClasses(errors.passwordRepeat)}
+                                            id="passwordRepeat"
+                                            name="passwordRepeat"
+                                            type="password"
+                                            placeholder="Подтвердите пароль"
+                                            required
+                                        />
+                                        <label htmlFor="password">Подтвердите пароль</label>
+                                        {errors.passwordRepeat && (
+                                            <div className="invalid-feedback">
+                                                {errors.passwordRepeat}
+                                            </div>
+                                        )}
+                                    </div>
 
-                                <Button className="w-100" type="submit" disabled={isLoading} size="lg">Войти</Button>
-                            </Form>
+                                    {serverError && (
+                                        <Alert variant="danger">{serverError}</Alert>
+                                    )}
+
+                                    <Button className="w-100" type="submit" disabled={isLoading}
+                                            size="lg">Войти</Button>
+                                </Form>
+                            )}
                         </Formik>
                     </CardBody>
                     <CardFooter className="d-flex justify-content-center">

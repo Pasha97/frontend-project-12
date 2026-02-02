@@ -1,4 +1,4 @@
-import { Button, Navbar } from "react-bootstrap";
+import { Button, Navbar, NavbarBrand } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { logout, IsAuthenticated } from '../../store/auth/index.js';
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,7 @@ export const TheHeader = () => {
     return (
         <Navbar className="shadow-sm" bg="white" expand="lg">
             <div className="container">
-                <Navbar.Brand href="#">Chat</Navbar.Brand>
+                <NavbarBrand href="#">Hexlet Chat</NavbarBrand>
 
                 { IsAuth && <Button onClick={handleClickLogout}>
                     Выйти
