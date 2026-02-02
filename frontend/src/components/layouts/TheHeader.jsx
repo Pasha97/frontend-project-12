@@ -1,9 +1,9 @@
 import { Button, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { logout, IsAuthenticated } from '../../store/auth';
+import { logout, IsAuthenticated } from '../../store/auth/index.js';
 import { useDispatch, useSelector } from "react-redux";
 
-export function Header() {
+export const TheHeader = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -26,3 +26,5 @@ export function Header() {
         </Navbar>
     );
 }
+
+export default TheHeader;

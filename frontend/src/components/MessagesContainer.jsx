@@ -10,7 +10,6 @@ import { currentChannel, currentChannelId } from "../store/channels/index";
 import { selectMessagesByChannelId } from "../store/messages";
 
 const Message = ({ message }) => {
-
     return (
         <div className="text-break mb-2">
             <b> {message.username} </b> {message.body}
@@ -18,7 +17,7 @@ const Message = ({ message }) => {
     )
 }
 
-export function MessagesList() {
+export function MessagesContainer() {
     const activeChannel = useSelector(currentChannel);
     const activeChannelId = useSelector(currentChannelId);
     const messages = useSelector(selectMessagesByChannelId(activeChannelId));
@@ -114,4 +113,4 @@ export function MessagesList() {
     );
 }
 
-export default MessagesList;
+export default MessagesContainer;
