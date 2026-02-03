@@ -1,14 +1,14 @@
-import axios from 'axios';
-import { getToken } from '../storage/auth';
+import axios from 'axios'
+import { getToken } from '../storage/auth'
 
-export const axiosInstance = axios.create({});
+export const axiosInstance = axios.create({})
 
 axiosInstance.interceptors.request.use((config) => {
-    const token = getToken();
+  const token = getToken()
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    
-    return config;
-});
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
+  return config
+})
