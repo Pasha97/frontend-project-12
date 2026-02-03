@@ -7,6 +7,7 @@ import { initChannels, addChannel, removeChannel, renameChannel } from "../../st
 import { addMessage, initMessages } from "../../store/messages";
 import { createSocket } from "../../services/socket/index.js";
 import { toast } from "react-toastify";
+import { t } from "i18next";
 
 export function HomePage() {
     const dispatch = useDispatch();

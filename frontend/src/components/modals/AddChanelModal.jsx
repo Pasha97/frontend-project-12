@@ -76,10 +76,12 @@ const AddChannelModal = ({ onClose }) => {
                                 autoFocus
                                 type="text"
                                 name="name"
+                                id="name"
                                 placeholder={t('fields.placeholderChanel')}
                                 disabled={isLoading}
                                 className={getFieldClasses(errors.name)}
                             />
+                            <label htmlFor="name" className="visually-hidden">{t('fields.placeholderChanel')}</label>
 
                             {errors.name && <div className="invalid-feedback">{errors.name}</div>}
 

@@ -1,6 +1,6 @@
 import filter from 'leo-profanity';
 
-filter.loadDictionary('en');
-filter.loadDictionary('ru');
+filter.add(filter.getDictionary('ru'));
+filter.add(filter.getDictionary('en'));
 
 export default filter;

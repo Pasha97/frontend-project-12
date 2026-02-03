@@ -119,7 +119,7 @@ export function SignupPage() {
                                             placeholder={t('fields.passwordRepeat')}
                                             required
                                         />
-                                        <label htmlFor="password">{t('fields.passwordRepeat')}</label>
+                                        <label htmlFor="passwordRepeat">{t('fields.passwordRepeat')}</label>
                                         {errors.passwordRepeat && (
                                             <div className="invalid-feedback">
                                                 {errors.passwordRepeat}

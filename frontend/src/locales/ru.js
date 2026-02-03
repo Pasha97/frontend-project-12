@@ -3,7 +3,7 @@ export default {
         buttons: {
             logIn: 'Войти',
             logOut: 'Выйти',
-            register: 'Зарегистрироваться',
+            register: 'Регистрация',
             cancel: 'Отменить',
             remove: 'Удалить',
             rename: 'Переименовать',
@@ -13,8 +13,10 @@ export default {
         fields: {
             passwordRepeat: 'Подтвердите пароль',
             placeholderMessage: 'Введите сообщение...',
-            placeholderChanel: 'Введите название канала',
-            name: 'Ваше имя',
+            placeholderMessageAria: 'Новое сообщение',
+            placeholderChanel: 'Имя канала',
+            name: 'Имя пользователя',
+            nickname: 'Ваш ник',
             password: 'Пароль',
         },
         modal: {
@@ -32,7 +34,7 @@ export default {
         },
         errors: {
             base: 'Произошла ошибка',
-            alreadyExists: 'Пользователь с таким именем уже существует',
+            alreadyExists: 'Такой пользователь уже существует',
             checkPassword: 'Пароли должны совпадать',
             incorrect: 'Неверные имя пользователя или пароль',
             minLetter: 'Не менее 6 символов',
@@ -42,7 +44,7 @@ export default {
         },
         toasts: {
             createdChannel: 'Канал создан',
-            removedChannel: 'Канал удален',
+            removedChannel: 'Канал удалён',
             renamedChannel: 'Канал переименован',
             error: 'Произошла ошибка при загрузке данных',
         }

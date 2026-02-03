@@ -17,7 +17,9 @@ const ChanelItemDropDown = ({ isActive, channel }) => {
 
     return (
         <>
-            <DropdownToggle size="sm" variant={isActive ? 'secondary' : 'link'} id="dropdown-basic"></DropdownToggle>
+            <DropdownToggle size="sm" variant={isActive ? 'secondary' : 'link'} id="dropdown-basic">
+                <span className="visually-hidden">Управление каналом</span>
+            </DropdownToggle>
 
             <DropdownMenu>
                 <DropdownItem href="#/action-1" onClick={handleClickRename}>{t('buttons.rename')}</DropdownItem>
@@ -35,7 +37,7 @@ const ChanelItem = ({ channel, onClick, isActive }) => {
                 className="w-100 rounded-0 text-start text-truncate"
                 onClick={() => onClick(channel.id)}
             >
-                # {channel.name}
+                <span className="me-1">#</span>{channel.name}
             </Button>
 
             {channel.removable && <ChanelItemDropDown isActive={isActive} channel={channel}/>}

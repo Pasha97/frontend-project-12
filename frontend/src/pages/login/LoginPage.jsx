@@ -76,10 +76,10 @@ export function LoginPage() {
                                         id="username"
                                         name="username"
                                         type="text"
-                                        placeholder={t('fields.name')}
+                                        placeholder={t('fields.nickname')}
                                         required
                                     />
-                                    <label htmlFor="username">{t('fields.name')}</label>
+                                    <label htmlFor="username">{t('fields.nickname')}</label>
                                 </div>
 
                                 <div className="form-floating mb-3">

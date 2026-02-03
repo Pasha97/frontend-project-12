@@ -102,8 +102,8 @@ export function MessagesContainer() {
                                 name="message"
                                 required
                                 className={getFieldClasses(error)}
-                                placeholder= {t('fields.placeholderMessage')}
-                                aria-label="message"
+                                placeholder={t('fields.placeholderMessage')}
+                                aria-label={t('fields.placeholderMessageAria')}
                                 disabled={isLoading}
                             />
                             <Button type="submit" disabled={isLoading}>
