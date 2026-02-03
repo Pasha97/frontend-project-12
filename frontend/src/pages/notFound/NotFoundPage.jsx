@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 export function NotFoundPage() {
-    return (
-        <div>
-            <h1>404</h1>
-            <p>Страница не найдена</p>
+    const { t } = useTranslation();
 
-            <Link to="/">Вернуться на главную</Link>
+    return (
+        <div className="d-flex align-items-center justify-content-center h-100 flex-column">
+            <h1>404</h1>
+            <p>{t('common.notFoundPage')}</p>
+
+            <Link to="/">{t('common.goToBack')}</Link>
         </div>
     );
 }

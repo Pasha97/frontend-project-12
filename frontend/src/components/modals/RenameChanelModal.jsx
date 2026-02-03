@@ -11,9 +11,12 @@ import api from "../../services/api/index.js";
 import { channels } from "../../store/channels";
 import { useSelector } from "react-redux";
 import { validateChannelName } from "../../validation/index.js";
+import { useTranslation } from "react-i18next";
 
 
 const RenameChanelModal = ({ onClose, params }) => {
+    const { t } = useTranslation();
+
     const { id } = params;
     const listChannels = useSelector(channels);
 
@@ -51,7 +54,7 @@ const RenameChanelModal = ({ onClose, params }) => {
         <>
             <ModalHeader>
                 <ModalTitle>
-                    Добавить канал
+                    {t('modal.renameChannel')}
                 </ModalTitle>
             </ModalHeader>
             <ModalBody>
@@ -68,7 +71,7 @@ const RenameChanelModal = ({ onClose, params }) => {
                                 autoFocus
                                 type="text"
                                 name="name"
-                                placeholder="Введите название канала"
+                                placeholder={t('fields.placeholderChanel')}
                                 disabled={isLoading}
                                 className={getFieldClasses(errors.name)}
                             />
@@ -82,14 +85,14 @@ const RenameChanelModal = ({ onClose, params }) => {
                                     className="me-2"
                                     disabled={isLoading}
                                 >
-                                    Отменить
+                                    {t('buttons.cancel')}
                                 </Button>
                                 <Button
                                     type="submit"
                                     variant="primary"
                                     disabled={isLoading}
                                 >
-                                    Переименовать
+                                    {t('buttons.rename')}
                                 </Button>
                             </div>
                         </Form>

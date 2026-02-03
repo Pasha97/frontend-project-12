@@ -1,0 +1,44 @@
+export default {
+    translation: {
+        buttons: {
+            logIn: 'Log in',
+            logOut: 'Log out',
+            register: 'Sign up',
+            cancel: 'Cancel',
+            remove: 'Delete',
+            rename: 'Rename',
+            submit: 'Submit',
+            create: 'Create',
+        },
+        fields: {
+            passwordRepeat: 'Confirm password',
+            placeholderMessage: 'Type a message...',
+            placeholderChanel: 'Enter channel name',
+            name: 'Username',
+            password: 'Password',
+        },
+        modal: {
+            addChannel: 'Add channel',
+            deleteChannel: 'Delete channel',
+            deleteText: 'Are you sure you want to delete the channel',
+            renameChannel: 'Rename channel',
+        },
+        common: {
+            channels: 'Channels',
+            notFoundPage: 'Page not found',
+            goToBack: 'Go back to home',
+            registration: 'Sign up',
+            counter: 'messages',
+        },
+        errors: {
+            base: 'An error occurred',
+            alreadyExists: 'User with this name already exists',
+            checkPassword: 'Passwords must match',
+            incorrect: 'Invalid username or password',
+            minLetter: 'At least 6 characters',
+            notOneOf: 'Must be unique',
+            rangeLetter: 'From 3 to 20 characters',
+            required: 'Required field',
+        },
+    },
+};

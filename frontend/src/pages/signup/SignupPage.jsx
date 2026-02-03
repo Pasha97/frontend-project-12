@@ -7,8 +7,11 @@ import { Formik, Form, Field } from 'formik';
 import { IsAuthenticated, login } from '../../store/auth';
 import api from "../../services/api";
 import { signupSchema } from "../../validation/index.js";
+import { useTranslation } from "react-i18next";
 
 export function SignupPage() {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -51,9 +54,9 @@ export function SignupPage() {
             navigate('/', { replace: true });
         } catch (e) {
             if (e.response?.status === 409) {
-                setServerError('Пользователь с таким именем уже существует');
+                setServerError(t('errors.alreadyExists'));
             } else {
-                setServerError('Ошибка регистрации');
+                setServerError(t('errors.base'));
             }
         } finally {
             setLoading(false);
@@ -82,10 +85,10 @@ export function SignupPage() {
                                             id="username"
                                             name="username"
                                             type="text"
-                                            placeholder="Ваше имя"
+                                            placeholder={t('fields.name')}
                                             required
                                         />
-                                        <label htmlFor="username">Ваше имя</label>
+                                        <label htmlFor="username">{t('fields.name')}</label>
 
                                         {errors.username && (
                                             <div className="invalid-feedback">{errors.username}</div>
@@ -98,10 +101,10 @@ export function SignupPage() {
                                             id="password"
                                             name="password"
                                             type="password"
-                                            placeholder="Пароль"
+                                            placeholder={t('fields.password')}
                                             required
                                         />
-                                        <label htmlFor="password">Пароль</label>
+                                        <label htmlFor="password">{t('fields.password')}</label>
                                         {errors.password && (
                                             <div className="invalid-feedback">{errors.password}</div>
                                         )}
@@ -113,10 +116,10 @@ export function SignupPage() {
                                             id="passwordRepeat"
                                             name="passwordRepeat"
                                             type="password"
-                                            placeholder="Подтвердите пароль"
+                                            placeholder={t('fields.passwordRepeat')}
                                             required
                                         />
-                                        <label htmlFor="password">Подтвердите пароль</label>
+                                        <label htmlFor="password">{t('fields.passwordRepeat')}</label>
                                         {errors.passwordRepeat && (
                                             <div className="invalid-feedback">
                                                 {errors.passwordRepeat}
@@ -129,13 +132,13 @@ export function SignupPage() {
                                     )}
 
                                     <Button className="w-100" type="submit" disabled={isLoading}
-                                            size="lg">Войти</Button>
+                                            size="lg">{t('buttons.create')}</Button>
                                 </Form>
                             )}
                         </Formik>
                     </CardBody>
                     <CardFooter className="d-flex justify-content-center">
-                        <Link to="/login">Войти</Link>
+                        <Link to="/login">{t('buttons.logIn')}</Link>
                     </CardFooter>
                 </Card>
             </div>

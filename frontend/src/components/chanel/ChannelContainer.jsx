@@ -1,10 +1,13 @@
-import { Button, Nav, NavItem, Badge, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "react-bootstrap";
+import { Nav, NavItem, Badge } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
 import { channels, currentChannelId, changeChannel } from '../../store/channels/index.js';
 import { open } from '../../store/modal/index.js';
 import ChanelItem from "./ChanelItem.jsx";
+import { useTranslation } from "react-i18next";
 
 export function ChannelContainer() {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch();
     const listChannels = useSelector(channels);
     const activeChannelId = useSelector(currentChannelId);
@@ -20,7 +23,7 @@ export function ChannelContainer() {
     return (
         <div className="bg-light flex-column d-flex h-100">
             <div className="d-flex mt-1 justify-content-between align-content-center  mb-2 ps-4 pe-2 p-4">
-                <p className="mb-0">Каналы</p>
+                <p className="mb-0">{t('common.channels')}</p>
                 <Badge bg="primary" onClick={handleClickAdd}>+</Badge>
             </div>
             <Nav className="flex-column px-2 mb-3 overflow-auto h-100 d-block">

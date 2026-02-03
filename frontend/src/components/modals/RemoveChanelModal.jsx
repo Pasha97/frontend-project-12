@@ -6,8 +6,11 @@ import {
 } from "react-bootstrap";
 import { useState } from "react";
 import api from "../../services/api/index.js";
+import { useTranslation } from "react-i18next";
 
 const RemoveChanelModal = ({ onClose, params }) => {
+    const { t } = useTranslation();
+
     const { id, name } = params;
 
     const [isLoading, setLoading] = useState(false);
@@ -33,11 +36,11 @@ const RemoveChanelModal = ({ onClose, params }) => {
         <>
             <ModalHeader>
                 <ModalTitle>
-                    Удалить канал
+                    {t('modal.deleteChannel')}
                 </ModalTitle>
             </ModalHeader>
             <ModalBody>
-                <p>Вы уверены что хотите удалить канал: {name} ?</p>
+                <p>{t('modal.deleteText')}: {name} ?</p>
                 <div className="d-flex justify-content-end mt-2">
                     <Button
                         variant="secondary"
@@ -45,7 +48,7 @@ const RemoveChanelModal = ({ onClose, params }) => {
                         className="me-2"
                         onClick={onClose}
                     >
-                        Отмена
+                        {t('buttons.cancel')}
                     </Button>
                     <Button
                         variant="danger"
@@ -54,7 +57,7 @@ const RemoveChanelModal = ({ onClose, params }) => {
                         autoFocus
                         onClick={handleClickRemove}
                     >
-                        Удалить
+                        {t('buttons.remove')}
                     </Button>
                 </div>
             </ModalBody>

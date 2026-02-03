@@ -1,8 +1,10 @@
 import { useDispatch } from "react-redux";
 import { open } from "../../store/modal/index.js";
 import { Button, ButtonGroup, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const ChanelItemDropDown = ({ isActive, channel }) => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
 
     const handleClickRename = () => {
@@ -18,8 +20,8 @@ const ChanelItemDropDown = ({ isActive, channel }) => {
             <DropdownToggle size="sm" variant={isActive ? 'secondary' : 'link'} id="dropdown-basic"></DropdownToggle>
 
             <DropdownMenu>
-                <DropdownItem href="#/action-1" onClick={handleClickRename}>Переименовать</DropdownItem>
-                <DropdownItem href="#/action-2" onClick={handleClickRemove}>Удалить</DropdownItem>
+                <DropdownItem href="#/action-1" onClick={handleClickRename}>{t('buttons.rename')}</DropdownItem>
+                <DropdownItem href="#/action-2" onClick={handleClickRemove}>{t('buttons.remove')}</DropdownItem>
             </DropdownMenu>
         </>
     );

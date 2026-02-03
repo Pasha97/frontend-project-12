@@ -2,8 +2,11 @@ import { Button, Navbar, NavbarBrand } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { logout, IsAuthenticated } from '../../store/auth/index.js';
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export const TheHeader = () => {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -20,7 +23,7 @@ export const TheHeader = () => {
                 <NavbarBrand href="#">Hexlet Chat</NavbarBrand>
 
                 { IsAuth && <Button onClick={handleClickLogout}>
-                    Выйти
+                    {t('buttons.logOut')}
                 </Button> }
             </div>
         </Navbar>

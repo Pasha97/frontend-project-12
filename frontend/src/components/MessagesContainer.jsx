@@ -8,6 +8,7 @@ import { user } from "../store/auth";
 import classNames from "classnames";
 import { currentChannel, currentChannelId } from "../store/channels/index";
 import { selectMessagesByChannelId } from "../store/messages";
+import { useTranslation } from "react-i18next";
 
 const Message = ({ message }) => {
     return (
@@ -18,6 +19,8 @@ const Message = ({ message }) => {
 }
 
 export function MessagesContainer() {
+    const { t } = useTranslation();
+
     const activeChannel = useSelector(currentChannel);
     const activeChannelId = useSelector(currentChannelId);
     const messages = useSelector(selectMessagesByChannelId(activeChannelId));
@@ -76,7 +79,7 @@ export function MessagesContainer() {
         <div className="d-flex flex-column h-100">
             <div className="bg-light mb-4 p-3 shadow-sm small">
                 <p className="m-0"><b># {activeChannel.name}</b></p>
-                <span className="text-muted">{messages.length} сообщений</span>
+                <span className="text-muted">{messages.length} {t('common.counter')}</span>
             </div>
             <div id="messages-box"
                  className="chat-messages overflow-auto px-5"
@@ -98,12 +101,12 @@ export function MessagesContainer() {
                                 name="message"
                                 required
                                 className={getFieldClasses(error)}
-                                placeholder="Введите сообщение"
+                                placeholder= {t('fields.placeholderMessage')}
                                 aria-label="message"
                                 disabled={isLoading}
                             />
                             <Button type="submit" disabled={isLoading}>
-                                Отправить
+                                {t('buttons.submit')}
                             </Button>
                         </InputGroup>
                     </Form>
