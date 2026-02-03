@@ -12,6 +12,7 @@ import { channels, changeChannel } from "../../store/channels";
 import { useDispatch, useSelector } from "react-redux";
 import { validateChannelName } from "../../validation/index.js";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const AddChannelModal = ({ onClose }) => {
     const { t } = useTranslation();
@@ -45,8 +46,9 @@ const AddChannelModal = ({ onClose }) => {
             const response = await api.channels.addChannels({ name });
             dispatch(changeChannel(response.data.id));
             onClose();
-        } catch (e) {
-            console.log('e.response', e, e.response)
+            toast.success(t('toasts.createdChannel'));
+        } catch {
+            toast.error(t('toasts.error'));
         } finally {
             setLoading(false);
         }

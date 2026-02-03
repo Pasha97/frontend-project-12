@@ -6,6 +6,7 @@ import MessagesContainer from "../../components/MessagesContainer.jsx";
 import { initChannels, addChannel, removeChannel, renameChannel } from "../../store/channels";
 import { addMessage, initMessages } from "../../store/messages";
 import { createSocket } from "../../services/socket/index.js";
+import { toast } from "react-toastify";
 
 export function HomePage() {
     const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export function HomePage() {
                 dispatch(initChannels(channels.data));
                 dispatch(initMessages(messages.data));
             } catch {
-                console.log('error')
+                toast.error(t('toasts.error'));
             }
         };
 

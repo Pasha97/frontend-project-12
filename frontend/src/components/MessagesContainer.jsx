@@ -9,6 +9,7 @@ import classNames from "classnames";
 import { currentChannel, currentChannelId } from "../store/channels/index";
 import { selectMessagesByChannelId } from "../store/messages";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const Message = ({ message }) => {
     return (
@@ -68,8 +69,8 @@ export function MessagesContainer() {
         try {
             await api.messages.addMessages(requestData);
             resetForm();
-        } catch (e) {
-            console.log('e.response', e, e.response)
+        } catch {
+            toast.error(t('toasts.error'));
         } finally {
             setLoading(false);
         }

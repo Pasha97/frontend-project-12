@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import api from "../../services/api/index.js";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const RemoveChanelModal = ({ onClose, params }) => {
     const { t } = useTranslation();
@@ -25,8 +26,9 @@ const RemoveChanelModal = ({ onClose, params }) => {
         try {
             await api.channels.deleteChannels(id);
             onClose();
-        } catch (e) {
-            console.log('e.response', e, e.response)
+            toast.success(t('toasts.removedChannel'));
+        } catch {
+            toast.error(t('toasts.error'));
         } finally {
             setLoading(false);
         }

@@ -12,6 +12,7 @@ import { channels } from "../../store/channels";
 import { useSelector } from "react-redux";
 import { validateChannelName } from "../../validation/index.js";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 
 const RenameChanelModal = ({ onClose, params }) => {
@@ -43,8 +44,9 @@ const RenameChanelModal = ({ onClose, params }) => {
         try {
             await api.channels.editChannels(id, { name });
             onClose();
-        } catch (e) {
-            console.log('e.response', e, e.response)
+            toast.success(t('toasts.renamedChannel'));
+        } catch {
+            toast.error(t('toasts.error'));
         } finally {
             setLoading(false);
         }

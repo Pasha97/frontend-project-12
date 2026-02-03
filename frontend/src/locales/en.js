@@ -40,5 +40,11 @@ export default {
             rangeLetter: 'From 3 to 20 characters',
             required: 'Required field',
         },
+        toasts: {
+            createdChannel: 'Channel created',
+            removedChannel: 'Channel deleted',
+            renamedChannel: 'Channel renamed',
+            error: 'An error occurred while loading data',
+        }
     },
 };

@@ -40,5 +40,11 @@ export default {
             rangeLetter: 'От 3 до 20 символов',
             required: 'Обязательное поле',
         },
+        toasts: {
+            createdChannel: 'Канал создан',
+            removedChannel: 'Канал удален',
+            renamedChannel: 'Канал переименован',
+            error: 'Произошла ошибка при загрузке данных',
+        }
     },
 }
