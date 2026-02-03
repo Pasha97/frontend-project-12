@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { InputGroup, Button } from "react-bootstrap";
 import { Field, Form, Formik } from "formik";
-
-import api from "../services/api";
-import { user } from "../store/auth";
-import classNames from "classnames";
-import { currentChannel, currentChannelId } from "../store/channels/index";
-import { selectMessagesByChannelId } from "../store/messages";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import classNames from "classnames";
+import { useTranslation } from "react-i18next";
+import { user } from "../store/auth";
+import { currentChannel, currentChannelId } from "../store/channels";
+import { selectMessagesByChannelId } from "../store/messages";
+import api from "../services/api";
+import filter from "../utils/filterMessage";
 
 const Message = ({ message }) => {
     return (
@@ -61,7 +61,7 @@ export function MessagesContainer() {
         setError('');
 
         const requestData = {
-            body: message,
+            body: filter.clean(message),
             channelId: activeChannelId,
             username: userName
         };

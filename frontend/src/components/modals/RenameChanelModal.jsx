@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { validateChannelName } from "../../validation/index.js";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import filter from "../../utils/filterMessage.js";
 
 
 const RenameChanelModal = ({ onClose, params }) => {
@@ -42,7 +43,7 @@ const RenameChanelModal = ({ onClose, params }) => {
         setLoading(true);
 
         try {
-            await api.channels.editChannels(id, { name });
+            await api.channels.editChannels(id, { name: filter.clean(name) });
             onClose();
             toast.success(t('toasts.renamedChannel'));
         } catch {
