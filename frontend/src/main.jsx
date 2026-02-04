@@ -9,7 +9,7 @@ import { store } from './store/index.js'
 import './i18n'
 
 const rollbarConfig = {
-  accessToken: 'd1aee511f2fb473cb1266cc1b136a39c067432786679afcc8f6e75e5fee0c34af74763a0b61cdc7b512f92fe0587bc1b',
+  accessToken: import.meta.env.VITE_ROLLBAR_TOKEN,
   environment: 'production',
 }
 
