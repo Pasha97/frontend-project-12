@@ -50,12 +50,16 @@ export function MessagesContainer() {
     message: '',
   }
 
+  const setFocusInput = () => {
+    inputField.current.focus()
+  }
+
   useEffect(() => {
     messagesBox.current.scrollTop = messagesBox.current.scrollHeight
   }, [messages])
 
   useEffect(() => {
-    inputField.current.focus()
+    setFocusInput()
   }, [activeChannelId])
 
   const onSubmit = async ({ message }, { resetForm }) => {
@@ -75,6 +79,7 @@ export function MessagesContainer() {
     try {
       await api.messages.addMessages(requestData)
       resetForm()
+      setTimeout(() => setFocusInput())
     }
     catch {
       toast.error(t('toasts.error'))
@@ -119,6 +124,7 @@ export function MessagesContainer() {
                 type="text"
                 name="message"
                 required
+                autoComplete="off"
                 className={getFieldClasses(error)}
                 placeholder={t('fields.placeholderMessage')}
                 aria-label={t('fields.placeholderMessageAria')}
