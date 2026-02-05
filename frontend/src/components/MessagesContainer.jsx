@@ -79,7 +79,7 @@ export function MessagesContainer() {
     try {
       await api.messages.addMessages(requestData)
       resetForm()
-      setTimeout(() => setFocusInput())
+      setTimeout(() => setFocusInput(), 100)
     }
     catch {
       toast.error(t('toasts.error'))
