@@ -87,6 +87,7 @@ export function SignupPage() {
                       id="username"
                       name="username"
                       type="text"
+                      autoComplete="off"
                       placeholder={t('fields.name')}
                       required
                     />
@@ -103,6 +104,7 @@ export function SignupPage() {
                       id="password"
                       name="password"
                       type="password"
+                      autoComplete="off"
                       placeholder={t('fields.password')}
                       required
                     />
@@ -118,6 +120,7 @@ export function SignupPage() {
                       id="passwordRepeat"
                       name="passwordRepeat"
                       type="password"
+                      autoComplete="off"
                       placeholder={t('fields.passwordRepeat')}
                       required
                     />

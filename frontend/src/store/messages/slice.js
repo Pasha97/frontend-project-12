@@ -14,7 +14,6 @@ const messagesSlice = createSlice({
 
     addMessage(state, { payload }) {
       state.messages.push(payload)
-      console.log('state.messages', state.messages)
     },
 
     resetMessages() {

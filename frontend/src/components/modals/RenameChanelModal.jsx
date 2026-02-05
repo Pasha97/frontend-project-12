@@ -78,6 +78,7 @@ const RenameChanelModal = ({ onClose, params }) => {
                 id="name"
                 placeholder={t('fields.placeholderChanel')}
                 disabled={isLoading}
+                autoComplete="off"
                 className={getFieldClasses(errors.name)}
               />
               <label htmlFor="name" className="visually-hidden">{t('fields.placeholderChanel')}</label>

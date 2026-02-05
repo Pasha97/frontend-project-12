@@ -78,6 +78,7 @@ const AddChannelModal = ({ onClose }) => {
                 type="text"
                 name="name"
                 id="name"
+                autoComplete="off"
                 placeholder={t('fields.placeholderChanel')}
                 disabled={isLoading}
                 className={getFieldClasses(errors.name)}

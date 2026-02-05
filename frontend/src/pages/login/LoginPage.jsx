@@ -77,6 +77,7 @@ export function LoginPage() {
                     id="username"
                     name="username"
                     type="text"
+                    autoComplete="off"
                     placeholder={t('fields.nickname')}
                     required
                   />
@@ -89,6 +90,7 @@ export function LoginPage() {
                     id="password"
                     name="password"
                     type="password"
+                    autoComplete="off"
                     placeholder={t('fields.password')}
                     required
                   />

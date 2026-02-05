@@ -12,16 +12,12 @@ const authSlice = createSlice({
       state.user = payload.user
       state.token = payload.token
       state.isAuthenticated = true
-
-      console.log('payload', payload)
     },
 
     logoutUser(state) {
       state.user = null
       state.token = null
       state.isAuthenticated = false
-
-      console.log('state', state)
     },
   },
 })
